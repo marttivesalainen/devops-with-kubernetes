@@ -1,0 +1,14 @@
+{
+	"extends": [
+		"@tsconfig/strictest/tsconfig.json",
+		"@tsconfig/node24/tsconfig.json"
+	],
+	"compilerOptions": {
+		"lib": ["ES2023", "DOM"],
+		"paths": {
+			"~/*": ["./app/*"]
+		},
+		"verbatimModuleSyntax": true
+	},
+	"exclude": ["build"]
+}
