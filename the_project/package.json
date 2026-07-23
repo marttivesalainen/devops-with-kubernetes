@@ -1,0 +1,32 @@
+{
+	"name": "the-project",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.0.0"
+	},
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"dev": "npm-run-all --parallel dev:*",
+		"dev:frontend": "npm run dev --workspace=frontend",
+		"dev:backend": "npm run dev --workspace=backend",
+		"build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+		"start": "npm run start --workspace=backend",
+		"types": "npm run types --workspaces --if-present",
+		"format": "biome check . --config-path ./biome.jsonc --linter-enabled=false",
+		"format:fix": "biome check . --config-path ./biome.jsonc --linter-enabled=false --write",
+		"format:ci": "biome ci . --config-path ./biome.jsonc --linter-enabled=false",
+		"lint": "biome lint . --config-path ./biome.jsonc",
+		"lint:fix": "biome lint . --config-path ./biome.jsonc --write",
+		"lint:ci": "biome ci . --config-path ./biome.jsonc --formatter-enabled=false --assist-enabled=false"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.5",
+		"@tsconfig/strictest": "^2.0.8",
+		"@types/node": "^26.1.1",
+		"npm-run-all2": "^9.0.2",
+		"typescript": "^7.0.2"
+	}
+}

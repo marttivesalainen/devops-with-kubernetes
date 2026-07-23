@@ -59,3 +59,7 @@ profile*
 
 /build
 .env
+**/build
+**/dist
+**/.env
+!.env.example

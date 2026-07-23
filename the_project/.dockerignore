@@ -1,0 +1,15 @@
+**/node_modules
+**/build
+**/dist
+**/.env
+!**/.env.example
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Dockerfile
+.dockerignore
+README.md
+**/*.md
+**/manifests

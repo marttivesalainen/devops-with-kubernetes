@@ -1,0 +1,29 @@
+{
+	"name": "backend",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"main": "./build/index.js",
+	"engines": {
+		"node": ">=24.0.0"
+	},
+	"scripts": {
+		"dev": "tsx watch --env-file=.env ./index.ts",
+		"build": "npm run build:clean && npm run build:tsc",
+		"build:clean": "rm -rf ./build",
+		"build:tsc": "tsc",
+		"start": "node ./build/index.js",
+		"types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@fastify/sensible": "^6.0.4",
+		"@fastify/static": "^10.1.2",
+		"fastify": "^5.10.0",
+		"fastify-type-provider-zod": "^7.0.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@tsconfig/node24": "^24.0.4",
+		"tsx": "^4.23.1"
+	}
+}
