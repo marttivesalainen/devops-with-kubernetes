@@ -11,3 +11,4 @@ Submissions
 - [1.4.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/1.4/todo-app)
 - [1.5.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/1.5/the_project)
 - [1.6.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/1.6/the_project)
+- [1.7.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/1.7/log_output)
