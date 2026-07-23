@@ -1,16 +1,21 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
+import Fastify from "fastify";
 
 const UUID = crypto.randomUUID();
-const TIMEOUT = 5000;
 
-const logOutput = () => {
-  const timestamp = new Date().toISOString();
+const fastify = Fastify({
+	logger: true,
+});
 
-  console.log(`${timestamp}: ${UUID}`);
+fastify.get("/status", (_, reply) => {
+	const timestamp = new Date().toISOString();
 
-  setTimeout(() => {
-    logOutput();
-  }, TIMEOUT);
-};
+	reply.send(`${timestamp}: ${UUID}`);
+});
 
-logOutput();
+fastify.listen({ host: "0.0.0.0", port: 3000 }, (err) => {
+	if (err) {
+		fastify.log.error(err);
+		process.exit(1);
+	}
+});
