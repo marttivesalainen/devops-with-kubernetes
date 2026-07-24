@@ -12,9 +12,26 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+          - name: shared-volume
+            persistentVolumeClaim:
+              claimName: shared-claim
+      initContainers:
+        - name: fix-cache-permissions
+          image: busybox:1.36
+          command: ["sh", "-c", "chown -R 1000:1000 /cache && chmod 775 /cache"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /cache
       containers:
         - name: todo-app
-          image: marttivesalainen/dwk1.5:latest
+          image: marttivesalainen/dwk-todo-app:1.12
+          imagePullPolicy: Always
           env:
             - name: PORT
               value: "3000"
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /cache

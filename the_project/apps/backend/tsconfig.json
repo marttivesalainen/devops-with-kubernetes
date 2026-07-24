@@ -1,18 +1,12 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": [
-		"../../tsconfig.json",
-		"@tsconfig/node24/tsconfig.json"
-	],
+	"extends": ["../../tsconfig.json", "@tsconfig/node24/tsconfig.json"],
 	"compilerOptions": {
 		"lib": ["ES2023"],
 		"outDir": "./build",
 		"rootDir": ".",
 		"sourceMap": true,
-		"stripInternal": true,
-		"paths": {
-			"~/*": ["./*"]
-		}
+		"stripInternal": true
 	},
 	"include": ["**/*.ts"],
 	"exclude": ["build", "node_modules"]

@@ -22,10 +22,12 @@ function HomePage() {
 
 	return (
 		<main>
-			<h1>The Project</h1>
+			<h1>Todo app</h1>
 			<p>
 				Backend health: <strong>{status}</strong>
 			</p>
+
+			<img src="/api/v1/image" alt="Some random content" />
 		</main>
 	);
 }
