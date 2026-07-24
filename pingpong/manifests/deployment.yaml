@@ -12,6 +12,13 @@ spec:
       labels:
         app: pingpong
     spec:
+      volumes:
+          - name: shared-volume
+            persistentVolumeClaim:
+              claimName: shared-claim
       containers:
         - name: pingpong
-          image: marttivesalainen/dwk1.9@sha256:30beff6fe4650a38fe43a7dbfb22c735fb0aebdf9b74985d25e42d577f547755
+          image: marttivesalainen/dwk-pingpong:1.11
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /tmp/pingpong

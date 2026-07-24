@@ -13,16 +13,17 @@ spec:
         app: log-output
     spec:
       volumes:
-        - name: log-volume
-          emptyDir: {}
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-claim
       containers:
         - name: string-generator
-          image: marttivesalainen/dwk1.10-generator:latest
+          image: marttivesalainen/dwk-generator:1.11
           volumeMounts:
-            - name: log-volume
+            - name: shared-volume
               mountPath: /tmp/log-output
         - name: server
-          image: marttivesalainen/dwk1.10-server:latest
+          image: marttivesalainen/dwk-server:1.11
           volumeMounts:
-            - name: log-volume
+            - name: shared-volume
               mountPath: /tmp/log-output

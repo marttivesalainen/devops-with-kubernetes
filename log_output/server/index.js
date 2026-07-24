@@ -2,21 +2,33 @@ import fs from "node:fs";
 import Fastify from "fastify";
 
 const LOG_FILE = "/tmp/log-output/log.txt";
+const COUNTER_FILE = "/tmp/log-output/counter.txt";
 
 const fastify = Fastify({
 	logger: true,
 });
 
-fastify.get("/", (_, reply) => {
-	fs.readFile(LOG_FILE, "utf8", (err, data) => {
-		if (err) {
-			console.error(`Error reading file ${LOG_FILE}:`, err);
-			reply.send(null);
-			return;
-		}
+const getCurrentCount = () => {
+	if (fs.existsSync(COUNTER_FILE)) {
+		return parseInt(fs.readFileSync(COUNTER_FILE, "utf-8"), 10);
+	}
+	return 0;
+};
 
-		reply.send(data);
-	});
+const getCurrentLogEntry = () => {
+	if (fs.existsSync(LOG_FILE)) {
+		return fs.readFileSync(LOG_FILE, "utf-8");
+	}
+	return "";
+};
+
+fastify.get("/", (_, reply) => {
+	const logEntry = getCurrentLogEntry();
+	const currentCount = getCurrentCount();
+
+	const response = `${logEntry}\nPing / Pongs: ${currentCount}`;
+
+	reply.send(response);
 });
 
 fastify.listen({ host: process.env.HOST ?? "0.0.0.0", port: process.env.PORT ?? 3000 }, (err) => {
