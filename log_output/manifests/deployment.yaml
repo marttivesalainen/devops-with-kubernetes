@@ -12,18 +12,6 @@ spec:
       labels:
         app: log-output
     spec:
-      volumes:
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: shared-claim
       containers:
-        - name: string-generator
-          image: marttivesalainen/dwk-generator:1.11
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /tmp/log-output
         - name: server
-          image: marttivesalainen/dwk-server:1.11
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /tmp/log-output
+          image: marttivesalainen/dwk-server:2.1

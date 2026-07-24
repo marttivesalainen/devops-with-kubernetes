@@ -1,30 +1,28 @@
-import fs from "node:fs";
+import crypto from "node:crypto";
 import Fastify from "fastify";
 
-const LOG_FILE = "/tmp/log-output/log.txt";
-const COUNTER_FILE = "/tmp/log-output/counter.txt";
+const RANDOM_UUID = crypto.randomUUID();
+const PINGS_ENDPOINT = "http://pingpong-svc:2345/pings";
 
 const fastify = Fastify({
 	logger: true,
 });
 
-const getCurrentCount = () => {
-	if (fs.existsSync(COUNTER_FILE)) {
-		return parseInt(fs.readFileSync(COUNTER_FILE, "utf-8"), 10);
-	}
-	return 0;
+const getCurrentPingCount = async () => {
+	const response = await fetch(PINGS_ENDPOINT);
+	const count = await response.text();
+	return count;
 };
 
 const getCurrentLogEntry = () => {
-	if (fs.existsSync(LOG_FILE)) {
-		return fs.readFileSync(LOG_FILE, "utf-8");
-	}
-	return "";
+	const timestamp = new Date().toISOString();
+
+	return `${timestamp}: ${RANDOM_UUID}`;
 };
 
-fastify.get("/", (_, reply) => {
+fastify.get("/", async (_, reply) => {
 	const logEntry = getCurrentLogEntry();
-	const currentCount = getCurrentCount();
+	const currentCount = await getCurrentPingCount();
 
 	const response = `${logEntry}\nPing / Pongs: ${currentCount}`;
 
