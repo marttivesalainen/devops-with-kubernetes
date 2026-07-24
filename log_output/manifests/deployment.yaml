@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: log-volume
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: marttivesalainen/dwk1.7@sha256:12e98bd8aa0a57f1f119392f23fa9897f71139152db75756418ba95901d1efb9
+        - name: string-generator
+          image: marttivesalainen/dwk1.10-generator:latest
+          volumeMounts:
+            - name: log-volume
+              mountPath: /tmp/log-output
+        - name: server
+          image: marttivesalainen/dwk1.10-server:latest
+          volumeMounts:
+            - name: log-volume
+              mountPath: /tmp/log-output
