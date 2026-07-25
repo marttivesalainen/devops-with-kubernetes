@@ -13,7 +13,14 @@ export default defineConfig({
 	],
 	server: {
 		port: 5173,
+		// In production, an Ingress dispatches by path prefix to the two backend
+		// Services. In dev we mirror that split here: more specific prefixes must
+		// come first, because Vite matches proxy keys in declared order.
 		proxy: {
+			"/api/v1/todos": {
+				target: "http://localhost:3001",
+				changeOrigin: true,
+			},
 			"/api": {
 				target: "http://localhost:3000",
 				changeOrigin: true,

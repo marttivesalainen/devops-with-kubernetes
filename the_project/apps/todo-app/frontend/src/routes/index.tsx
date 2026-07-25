@@ -2,17 +2,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TodoForm, todoFormDefaults } from "../components/TodoForm";
 import { useAppForm } from "../form";
 import { useHealthQuery } from "../queries/health";
+import { useTodoMutation, useTodoQuery } from "../queries/todo";
 
 function HomePage() {
 	const { isLoading, isError, data } = useHealthQuery();
 
 	const status = isLoading ? "checking…" : isError ? "unreachable" : (data?.status ?? "unknown");
 
+	const todoMutation = useTodoMutation();
+	const { isLoading: isTodosLoading, data: todos } = useTodoQuery();
+
 	const form = useAppForm({
 		defaultValues: todoFormDefaults,
 		onSubmit: async ({ value, formApi }) => {
 			// TODO: replace with real POST /api/v1/todos call
-			console.log("submit todo", value);
+			await todoMutation.mutateAsync({ content: value.content, completed: false });
 			formApi.reset();
 		},
 	});
@@ -31,9 +35,13 @@ function HomePage() {
 			<h2 className="text-xl font-semibold">Todos</h2>
 
 			<ul className="list-inside list-disc space-y-1">
-				<li>Todo 1</li>
-				<li>Todo 2</li>
-				<li>Todo 3</li>
+				{isTodosLoading ? (
+					<li>Loading...</li>
+				) : todos && todos.length > 0 ? (
+					todos.map((todo) => <li key={todo.id}>{todo.content}</li>)
+				) : (
+					<li>No todos found</li>
+				)}
 			</ul>
 		</main>
 	);

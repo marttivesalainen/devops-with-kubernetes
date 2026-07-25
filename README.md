@@ -22,3 +22,4 @@ Submissions
 ### Chapter 3
 
 - [2.1.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/2.1)
+- [2.2.](https://github.com/marttivesalainen/devops-with-kubernetes/tree/2.2/the_project)

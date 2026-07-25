@@ -6,14 +6,16 @@
 		"node": ">=24.0.0"
 	},
 	"workspaces": [
-		"apps/*"
+		"apps/*",
+		"apps/todo-app/*"
 	],
 	"scripts": {
 		"dev": "npm-run-all --parallel dev:*",
 		"dev:frontend": "npm run dev --workspace=frontend",
 		"dev:backend": "npm run dev --workspace=backend",
-		"build": "npm run build --workspace=frontend && npm run build --workspace=backend",
-		"start": "npm run start --workspace=backend",
+		"dev:todo-backend": "npm run dev --workspace=todo-backend",
+		"build": "npm run build --workspace=frontend && npm run build --workspace=backend && npm run build --workspace=todo-backend",
+		"start": "npm run start --workspace=backend && npm run start --workspace=todo-backend",
 		"types": "npm run types --workspaces --if-present",
 		"format": "biome check . --config-path ./biome.jsonc --linter-enabled=false",
 		"format:fix": "biome check . --config-path ./biome.jsonc --linter-enabled=false --write",

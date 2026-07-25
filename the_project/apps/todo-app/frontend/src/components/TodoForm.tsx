@@ -2,7 +2,7 @@ import { withForm } from "../form";
 
 export const MAX_TITLE_LENGTH = 140;
 
-export const todoFormDefaults = { title: "" };
+export const todoFormDefaults = { content: "" };
 
 export const TodoForm = withForm({
 	defaultValues: todoFormDefaults,
@@ -16,11 +16,11 @@ export const TodoForm = withForm({
 			className="space-y-3"
 		>
 			<form.AppField
-				name="title"
+				name="content"
 				validators={{
 					onChange: ({ value }) => {
 						const trimmed = value.trim();
-						if (trimmed.length === 0) return "Title is required";
+						if (trimmed.length === 0) return "Content is required";
 						if (value.length > MAX_TITLE_LENGTH) {
 							return `Max ${MAX_TITLE_LENGTH} characters`;
 						}
