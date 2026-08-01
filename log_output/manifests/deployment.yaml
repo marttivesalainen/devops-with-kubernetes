@@ -15,4 +15,21 @@ spec:
     spec:
       containers:
         - name: server
-          image: marttivesalainen/dwk-server:2.1
+          image: marttivesalainen/dwk-server:2.5
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSAGE
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: log-output-config
+            items:
+              - key: file.txt
+                path: file.txt
