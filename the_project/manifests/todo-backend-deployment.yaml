@@ -19,4 +19,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: PORT
-              value: "3000"
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-backend-config
+                  key: APP_PORT

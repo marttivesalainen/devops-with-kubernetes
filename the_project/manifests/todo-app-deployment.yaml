@@ -32,7 +32,15 @@ spec:
           imagePullPolicy: Always
           env:
             - name: PORT
-              value: "3000"
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-config
+                  key: APP_PORT
+            - name: CACHE_DIR
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-config
+                  key: CACHE_DIR
           volumeMounts:
             - name: shared-volume
               mountPath: /cache

@@ -5,7 +5,7 @@ const configSchema = z.object({
 	PORT: z.coerce.number().int().positive(),
 	HOST: z.string().min(1).default("0.0.0.0"),
 	FRONTEND_DIST: z.string().min(1).optional(),
-	CACHE_DIR: z.string().min(1).default("/cache"),
+	CACHE_DIR: z.string().min(1),
 });
 
 export type AppConfig = {
